@@ -44,7 +44,7 @@ function playGame() {
             computerScore++;
         } else if (lowerCaseHumanChoice === computerChoice) { // draw scenerio
             console.log(`Draw ! ${lowerCaseHumanChoice} and ${computerChoice}`)
-        } else { // if not win and not draw then must be lose
+        } else { // if computer not win and not draw, it means human win
             console.log(`You win! ${lowerCaseHumanChoice} beats ${computerChoice}`)
             humanScore++;
         }
