@@ -34,17 +34,17 @@ function playGame() {
 
     function playRound(humanChoice, computerChoice) {
         let lowerCaseHumanChoice = humanChoice.toLowerCase();
+        // computer win scenerio
         let computerWin = (lowerCaseHumanChoice === "rock" && computerChoice == "paper" ||
-        lowerCaseHumanChoice === "paper" && computerChoice == "scissors" ||
-        lowerCaseHumanChoice === "scissors" && computerChoice == "rock");
-        //human lose scenerio
+            lowerCaseHumanChoice === "paper" && computerChoice == "scissors" ||
+            lowerCaseHumanChoice === "scissors" && computerChoice == "rock");
 
-        if (computerWin){
+        if (computerWin) {
             console.log(`You lose! ${computerChoice} beats ${lowerCaseHumanChoice}`);
             computerScore++;
-        }else if(lowerCaseHumanChoice === computerChoice){
+        } else if (lowerCaseHumanChoice === computerChoice) { // draw scenerio
             console.log(`Draw ! ${lowerCaseHumanChoice} and ${computerChoice}`)
-        }else{
+        } else { // if not win and not draw then must be lose
             console.log(`You win! ${lowerCaseHumanChoice} beats ${computerChoice}`)
             humanScore++;
         }
