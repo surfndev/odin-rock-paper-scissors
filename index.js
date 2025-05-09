@@ -1,65 +1,71 @@
-// Step 2 
+let humanScore = 0;
+let computerScore = 0;
+const roundNumber = document.querySelector('.round-number');
+const humanWinMessage = document.createElement('p');
+humanWinMessage.textContent = 'Human win ! Human got 5 points!'
+const computerWinMessage = document.createElement('p');
+computerWinMessage.textContent = 'Computer win ! Computer got 5 points!'
+
+
 // getComputerChoice declration
 function getComputerChoice() {
     // create a number variable and store the random value of 1 - 3
     let randomNum = Math.floor(Math.random() * 3) + 1
     // seperate different cases using switch and return it
     switch (randomNum) {
-        // case 1 rock
         case 1:
             return "rock"
-        // case 2 paper
         case 2:
             return "paper"
-        // case 3 scissors
         case 3:
             return "scissors"
     }
 }
 
+function playRound(humanChoice, computerChoice) {
+    const message = document.querySelector('.message');
+    // computer win scenerio
+    let computerWin = (humanChoice === "rock" && computerChoice == "paper" ||
+        humanChoice === "paper" && computerChoice == "scissors" ||
+        humanChoice === "scissors" && computerChoice == "rock");
 
-// step 3
-// getHumanChoice declaration
-function getHumanChoice() {
-    let userChoice = "";
-    userChoice = prompt("Please choose \"rock\", \"paper\" or \"scissors\"");
-    return userChoice;
-}
+    if (computerWin) {
+        message.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+        computerScore++;
+    } else if (humanChoice === computerChoice) { // draw scenerio
+        message.textContent = `Draw ! ${humanChoice} and ${computerChoice}`;
+    } else { // if not win and not draw then must be lose
+        message.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+        humanScore++;
+    }
+    roundNumber.textContent = `${humanScore}  :  ${computerScore}`;
 
-
-
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound(humanChoice, computerChoice) {
-        let lowerCaseHumanChoice = humanChoice.toLowerCase();
-        // computer win scenerio
-        let computerWin = (lowerCaseHumanChoice === "rock" && computerChoice == "paper" ||
-            lowerCaseHumanChoice === "paper" && computerChoice == "scissors" ||
-            lowerCaseHumanChoice === "scissors" && computerChoice == "rock");
-
-        if (computerWin) {
-            console.log(`You lose! ${computerChoice} beats ${lowerCaseHumanChoice}`);
-            computerScore++;
-        } else if (lowerCaseHumanChoice === computerChoice) { // draw scenerio
-            console.log(`Draw ! ${lowerCaseHumanChoice} and ${computerChoice}`)
-        } else { // if not win and not draw then must be lose
-            console.log(`You win! ${lowerCaseHumanChoice} beats ${computerChoice}`)
-            humanScore++;
-        }
+    if (humanScore == 5) {
+        humanWinMessage.setAttribute('class', 'yolo');
+        message.appendChild(humanWinMessage);
+        humanScore = 0;
+        computerScore = 0;
     }
 
-    for (let i = 0; i < 5; i++) {
-        console.log(`Round${i + 1}:`);
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        console.log(`Human ${humanScore} : ${computerScore} PC`)
+    if (computerScore == 5) {
+        computerWinMessage.setAttribute('class', 'yolo');
+        message.appendChild(computerWinMessage);
+        humanScore = 0;
+        computerScore = 0;
     }
+
 }
 
-playGame();
+['rock','paper','scissors'].forEach((choice) => {
+    document.querySelector(`.${choice}`).addEventListener('click', () => {
+        playRound(`${choice}`,getComputerChoice());
+    })
+})
+
+
+
+
+
 
 
 
